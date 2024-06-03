@@ -50,7 +50,7 @@ After you filled your database you should run all the other SQL scripts to enric
 
 1. First query will create two columns which will give us more information about peoples age category and ratio of goals and apearances in the current club
 2. Second query will give us average age, goals and apearances for each club
-3. Third query will give us a list of players in choosen club and count of players which are playing on the same positions, are younger and have more apearances in the current club. To choose a club change this part of query (change Liverpool to your cub of choice):
+3. Third query will give us a list of players in choosen club and count of players which are playing on the same positions, are younger and have more apearances in the current club. To choose a club change this part of query (change Liverpool to your club of choice):
    ```sh
    WHERE players.current_club = 'Liverpool'
    ```
