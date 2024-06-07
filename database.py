@@ -51,20 +51,6 @@ def insert_player(row: dict):
         session.close()
 
 
-def select_player(url: str):
-    try:
-        session = connect_to_db()
-        query = select(Player)
-        players = session.execute(query).fetchall()
-        urls = set([player[0].url for player in players])
-        print(url in urls)
-    except Exception as error:
-        print("Error:", error)
-
-    finally:
-        session.close()
-
-
 def update_player(row: dict):
     try:
         session = connect_to_db()
@@ -96,7 +82,3 @@ def player_in_database(url: str) -> bool:
 
     finally:
         session.close()
-
-
-# update_player({"url": "https://en.wikipedia.org/wiki/Kuchta", "full_name": "kuchta"})
-# select_player("https://en.wikipedia.org/wiki/Mario_Perrone")

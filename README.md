@@ -35,11 +35,14 @@ For this project you should have postgreSQL. Create a database with a name of yo
 
 ### Run the program
 
-After setting everything up you can run program with any given csv file which has list of urls in it (also column should be called "urls").
+After setting everything up you can run program with two files.
 
-- Here is example how to run it with file called playersURLs.csv
+First should have data of players which will be stored directly to the database.
+Second should have a list of urls we would like to scrap (also column should be called "urls").
+
+- run the following
   ```python
-  python scrap.py playersURLs.csv
+  python scrap.py playersData.csv playersURLs.csv
   ```
 
 When program has finished you should have your database filled with data and program will also create file "scrapped_data.csv" with all the data it could find.
