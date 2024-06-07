@@ -7,7 +7,7 @@ import datetime
 import re
 import sys
 
-from db import insert_player, player_in_database, update_player
+from database import insert_player, player_in_database, update_player
 
 
 def read_data(html, tag, class_=None):
@@ -80,7 +80,7 @@ def get_data(url: str) -> dict:
     return player_data
 
 
-def scrap_links(filename: str):
+def scrap_and_store(filename: str):
     df_urls = pd.read_csv(filename)
     df_players = pd.DataFrame(columns=["url", "name", "full_name", "date_of_birth", "age", "place_of_birth", "country_of_birth", "positions", "current_club", "national_team", "appearances_current_club", "goals_current_club", "scraping_timestamp"])
 
@@ -88,7 +88,6 @@ def scrap_links(filename: str):
     for url in df_urls["urls"]:
         player_data = get_data(url)
         if player_data:
-            print(player_data)
             if player_in_database(player_data["url"]):
                 update_player(player_data)
             else:
@@ -96,6 +95,7 @@ def scrap_links(filename: str):
 
             df_players.loc[index] = player_data
             index += 1
+    print("DB is up to date")
     df_players.to_csv("scrapped_data.csv")
 
 
@@ -108,11 +108,11 @@ def insert_initial_players(filename: str):
         row["appearances_current_club"] = None
         row["age"] = convert_to_int(str(row["age"]))
         row = clean_nan(row)
-
         insert_player(row)
+    print("Initial setup over\n")
 
 
 if __name__ == "__main__":
     insert_initial_players(sys.argv[1])
 
-    update_players(sys.argv[2])
+    scrap_and_store(sys.argv[2])
